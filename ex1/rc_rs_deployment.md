@@ -157,7 +157,8 @@ replicaset "soaktestrs1" deleted
 ```
 Again, the pods that were created are deleted when we delete the Replica Set.
 ```
-# kubectl get pods
+# kubectl get pods,rc,rs
+--- there shouldn't be any pod, rc, rs resources available. If you have any then delete it.
 ```
 ## Deployments
 
