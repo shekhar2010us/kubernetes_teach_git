@@ -48,7 +48,8 @@ $ kubectl get hpa
 
 ## Functionality of Roll outs and Roll Backs
 
-We will use the yaml files located in this section https://github.com/abhikbanerjee/Kubernetes_Exercise_Files/tree/master/helper_yaml_files/Ex_rollback_rollout
+We will use the yaml files located in this section 
+https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex4/navbar-black.yaml
 
 Create the deployment and service for the navbar (record option is sometime used to record all the description)
 ```
