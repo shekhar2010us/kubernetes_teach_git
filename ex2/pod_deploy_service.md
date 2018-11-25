@@ -76,9 +76,11 @@ $ kubectl get po,deploy,svc,rs -o wide
 
 Now delete the blue, deployment and the pod that was created
 ```
-$ kubectl delete pod pod_name
+$ kubectl delete pod <blue_pod_name>
+ Deleting the pod will re-create it again.
 
 $ kubectl delete deploy blue
+This will delete all pods, rs and deploy associated with blue.
 ```
 Check for the running pods, deploy, svc, rs
 ```
@@ -104,7 +106,20 @@ $ kubectl get po,deploy,svc,rs -o wide
 Now apply these changes using the apply command
 ```
 $ kubectl apply -f red.yaml
+Replica 3 will be applied...
 ```
+
+Let's describe the deploy red now
+```
+$ kubectl describe deploy red
+At the bottom, see the changes in the "Events" section. It should show something like  below
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  1m    deployment-controller  Scaled up replica set red-755d594cd4 to 1
+  Normal  ScalingReplicaSet  24s   deployment-controller  Scaled up replica set red-755d594cd4 to 3
+```
+
 Check for the running pods, deploy, svc, rs
 ```
 $ kubectl get po,deploy,svc,rs -o wide
