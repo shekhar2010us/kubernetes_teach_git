@@ -22,6 +22,8 @@ $ kubectl get po,deploy,svc -o wide
 Scale the deployment created in last step and see the effect on the number of pods, rs, and deployment 
 ```
 $ kubectl scale deploy helloworld-all-deployment --replicas=4
+Check the scaling in "describe", at the bottom in the "Events" section, you will see that it's scaled from 1 to 4
+$ kubectl describe deploy helloworld-all-deployment
 ```
 
 ## Use Auto-Scaling on an existing deployment 
