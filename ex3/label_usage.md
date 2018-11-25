@@ -1,7 +1,7 @@
 ## Labels Usage
 
 Create a bunch of pods with various labels, so we can operate on these pods 
-(https://github.com/abhikbanerjee/Kubernetes_Exercise_Files/blob/master/helper_yaml_files/Ex_labels/sample-infrastructure-with-labels.yml)
+(https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex3/sample-infra-with-labels.yaml)
 
 Let’s take a look at what we have created:
 
@@ -18,7 +18,8 @@ You can get more details by showing and displaying the labels:
 Use Sample Infrastructure to create a bunch of Pods (even though in real life we don't create pods)
 
 ```
-kubectl create -f sample-infrastructure-with-labels.yml (creates a bunch of pods with labels)
+kubectl create -f sample-infra-with-labels.yaml
+(creates a bunch of pods with labels)
 ```
 
 ## Use various Selectors for pods
