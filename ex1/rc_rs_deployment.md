@@ -71,7 +71,6 @@ As you can see, when you delete the Replication Controller, you also delete all 
 ## Replica Sets
 Next we’ll look at Replica Sets, but first let’s clean up:
 
-Replica Sets
 Replica Sets are a sort of hybrid, in that they are in some ways more powerful than Replication Controllers,
 and in others they are less powerful. Replica Sets are declared in essentially the same way as Replication Controllers, 
 except that they have more options for the selector. Use the file rs.yaml for this part
@@ -81,7 +80,7 @@ rs.yaml file is located in - https://github.com/shekhar2010us/kubernetes_teach_g
 In this case, it’s more or less the same as when we were creating the Replication Controller, 
 except we’re using matchLabels instead of label.  But we could just as easily have said (has matchExpressions):
 
-...
+```
 spec:
    replicas: 3
    selector:
@@ -90,9 +89,9 @@ spec:
       - {key: teir, operator: NotIn, values: [production]}
   template:
      metadata:
-...
+```
 
-In this case, we’re looking at two different conditions:
+In the above case, we’re looking at two different conditions:
 
 The app label must be soaktestrc, soaktestrs, or soaktest
 The tier label (if it exists) must not be production
