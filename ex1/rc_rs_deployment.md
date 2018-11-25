@@ -2,7 +2,7 @@
 
 Create a Replication Controller from a file called rc.yaml (inside helper files) and add the following text:
 
-rc.yaml file is located in - https://github.com/abhikbanerjee/Kubernetes_Exercise_Files/tree/master/helper_yaml_files/Ex_rc_rs_deploy
+rc.yaml file is located in - https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex1/rc.yaml
 
 Most of this structure should look familiar from our discussion of Deployments; we’ve got the name of the actual 
 Replication Controller (soaktestrc) and we’re designating that we should have 3 replicas, each of which are 
@@ -64,7 +64,7 @@ Replica Sets are a sort of hybrid, in that they are in some ways more powerful t
 and in others they are less powerful. Replica Sets are declared in essentially the same way as Replication Controllers, 
 except that they have more options for the selector. Use the file rs.yaml for this part
 
-rs.yaml file is located in - https://github.com/abhikbanerjee/Kubernetes_Exercise_Files/tree/master/helper_yaml_files/Ex_rc_rs_deploy
+rs.yaml file is located in - https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex1/rs.yaml
 
 In this case, it’s more or less the same as when we were creating the Replication Controller, 
 except we’re using matchLabels instead of label.  But we could just as easily have said (has matchExpressions):
@@ -156,7 +156,7 @@ Deployments are intended to replace Replication Controllers.  They provide the s
 Let’s create a simple Deployment using the same image we’ve been using.  
 First create a new file, deploy_bcked_by_rs.yaml, and add the following:
 
-deploy_backed_by_rs.yaml is located in - https://github.com/abhikbanerjee/Kubernetes_Exercise_Files/tree/master/helper_yaml_files/Ex_rc_rs_deploy
+deploy_backed_by_rs.yaml is located in - https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex1/deploy_backed_by_rs.yaml
 
 Now go ahead and create the Deployment:
 
