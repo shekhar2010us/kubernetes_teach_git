@@ -201,20 +201,18 @@ Notice that the name of the Replica Set is the Deployment name and a hash value.
 We can check the pods for the deployment (and also behind the scenes the dpeloyment creates a replica sets)
 
 ```
-# kubectl get deploy,po,rs
+Check all deployments, pods, RCs, RSs
+# kubectl get deploy,po,rs,rc
 NAME                        READY     STATUS    RESTARTS   AGE
 soaktest-3914185155-7gyja   1/1       Running   0          2m
 soaktest-3914185155-lrm20   1/1       Running   0          2m
 soaktest-3914185155-o28px   1/1       Running   0          2m
 soaktest-3914185155-ojzn8   1/1       Running   0          2m
 soaktest-3914185155-r2pt7   1/1       Running   0          2m
+
+You can see that there is 1 deployment, 5 pods (becaue of 5 replication), 1 replica set BUT no replication controller.
+This is because deployment created replica set but not replication controller
 ```
-
-## Try creating a deployment using the yaml file (where the labels and selectors do not match the desciption and check the error
-
-kubectl create -f rs_selector2_bad.yaml
-
--- check the error for this deployment.
 
 Ref:- https://www.mirantis.com/blog/kubernetes-replication-controller-replica-set-and-deployments-understanding-replication-options/
 
