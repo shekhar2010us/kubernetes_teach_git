@@ -133,7 +133,8 @@ $ kubectl delete deploy red
 ```
 Check for the running pods, deploy, svc, rs
 ```
-$ kubectl get po,deploy,rs -o wide -w  # -w is like watch option to see see the changes happening
+$ kubectl get pod -o wide -w
+# -w is like watch option to see see the changes happening
 ```
 
 
