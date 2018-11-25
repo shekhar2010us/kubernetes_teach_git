@@ -91,11 +91,9 @@ spec:
      metadata:
 ```
 
-In the above case, we’re looking at two different conditions:
-
-The app label must be soaktestrc, soaktestrs, or soaktest
-The tier label (if it exists) must not be production
-Let’s go ahead and create the Replica Set and get a look at it:
+In the above case, we’re looking at two different conditions: The app label must be soaktestrc, soaktestrs, or soaktest
+<br> The tier label (if it exists) must not be production
+<br>Let’s go ahead and create the Replica Set and get a look at it:
 
 ```
 # kubectl create -f rs.yaml
