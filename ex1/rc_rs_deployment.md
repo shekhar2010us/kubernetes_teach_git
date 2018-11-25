@@ -165,9 +165,8 @@ Again, the pods that were created are deleted when we delete the Replica Set.
 Deployments are intended to replace Replication Controllers.  They provide the same replication functions
 (through Replica Sets) and also the ability to rollout changes and roll them back if necessary.
 
-Let’s create a simple Deployment using the same image we’ve been using.  
-First create a new file, deploy_bcked_by_rs.yaml, and add the following:
-
+You first have to create a simple Deployment (you can find it in the git repo)  
+<br>
 deploy_backed_by_rs.yaml is located in - https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex1/deploy_backed_by_rs.yaml
 
 Now go ahead and create the Deployment:
