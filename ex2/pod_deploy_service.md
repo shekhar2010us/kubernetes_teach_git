@@ -146,6 +146,7 @@ kubectl delete service/nginx-service
 ```
 
 Ref:- https://kubernetes.io/docs/concepts/overview/object-management-kubectl/overview/,
+<br>
 Ref:- https://www.linkedin.com/learning/learning-kubernetes/next-steps
 
 
