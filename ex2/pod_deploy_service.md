@@ -34,7 +34,7 @@ try this url
 
 # Create a deployment with the name blue  (Imperative management using config files)
 ```
-$ kubectl create -f blue.yml
+$ kubectl create -f blue.yaml
 ```
 Check the currently running pods, deployments, services and replica sets
 ```
@@ -55,7 +55,7 @@ Check the currently running pods, deployments, services and replica sets ( we sh
 
 Create a pod using the blue.yaml file
 ```
-$ kubectl create -f sample_pod.yml
+$ kubectl create -f sample_pod.yaml
 ```
 Check for the running pods, deploy, svc, rs
 ```
@@ -64,11 +64,11 @@ $ kubectl get po,deploy,svc,rs -o wide
 
 Create a Deployment using the blue.yaml file
 ```
-$ kubectl create -f blue.yml
+$ kubectl create -f blue.yaml
 ```
 Try again creating the same blue deployment and see what happens (this should give an error)
 ```
-$ kubectl create -f blue.yml
+$ kubectl create -f blue.yaml
 ```
 Check for the running pods, deploy, svc, rs
 ```
@@ -90,7 +90,7 @@ $ kubectl get po,deploy,svc,rs -o wide
 
 Create a Deployment using the red.yaml file, but now using apply
 ```
-$ kubectl apply -f red.yml
+$ kubectl apply -f red.yaml
 ```
 Now go and edit the file and change the replicas from 1 to 3, using vi
 ```
