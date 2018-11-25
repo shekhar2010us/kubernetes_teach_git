@@ -152,6 +152,8 @@ Let’s clean up before we move on.
 ```
 # kubectl delete rs soaktestrs
 replicaset "soaktestrs" deleted
+# kubectl delete rs soaktestrs1
+replicaset "soaktestrs1" deleted
 ```
 Again, the pods that were created are deleted when we delete the Replica Set.
 ```
