@@ -137,6 +137,13 @@ $ kubectl get pod -o wide -w
 # -w is like watch option to see see the changes happening
 ```
 
+If you have run all commands, you will have few more resources running, let's clean that up
+
+```
+kubectl delete pod/nginx-apparmor
+kubectl delete deployment.apps/nginx-deployment
+kubectl delete service/nginx-service
+```
 
 Ref:- https://kubernetes.io/docs/concepts/overview/object-management-kubectl/overview/,
 Ref:- https://www.linkedin.com/learning/learning-kubernetes/next-steps
