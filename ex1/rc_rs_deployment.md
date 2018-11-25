@@ -44,6 +44,18 @@ soaktestrc-cws05   1/1       Running   0          3m
 soaktestrc-g5snq   1/1       Running   0          3m
 soaktestrc-ro2bl   1/1       Running   0          3m
 ```
+
+Delete one of the pods (out of 3)
+If you delete one of the pods manually, then the replication controller will create one to match the desired numbers of pods to be 3.
+```
+# kubectl delete pod/<pod_name>
+pod "<pod_name>" deleted
+
+# kubectl get pods -o wide
+You will see three pods again
+```
+
+
 Clean up the Replication Controllers
 
 ```
