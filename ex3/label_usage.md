@@ -66,18 +66,21 @@ Note - if you do not specify "overwrite" option, it will complain that the KEY a
 delete a label to an existing pod
 ```
 remove the label
-kubectl label po/cart-dev app-
+# kubectl label po/cart-dev app-
 ```
 
 # Delete pods, which match some of the given pods [delete, get with a specific label, works for deployment, replication set too]
 ```
 kubectl delete pods -l dev-lead=karthik 
 ```
-delete all pods which belong to the environment production
+# delete all pods which belong to the environment production
 ```
-kubectl delete pods -l env=production 
+# kubectl delete pods -l env=production 
 ```
-
+delete all pods in a namespace (we will see namespace in detail later. But right now, we have to delete all pods for cleanup, so we are using delete by namespace)
+```
+# kubectl delete --all pods --namespace=default
+```
 Ref:- https://www.linkedin.com/learning/learning-kubernetes/next-steps
 
 
