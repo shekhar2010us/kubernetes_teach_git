@@ -27,9 +27,6 @@ do a
 ```
 $ curl <ip_address>:<port_number>
 
-try this url
-<ip_address>:<port_number>
-
 ```
 
 # Create a deployment with the name blue  (Imperative management using config files)
@@ -47,6 +44,8 @@ Edit the Deployment and change the replicas from 1 to 2
 # kubectl edit deploy blue
 ```
 Check the currently running pods, deployments, services and replica sets ( we should now see 2 pods running)
+*** Note - editing a running resource will change in the resource, but that will not change your Config file. It's a good practise to make changes in the Config file for maintainability. EDIT options are mostly used for quick debugging.
+
 
 ```
  kubectl get po,deploy,svc,rs -o wide
