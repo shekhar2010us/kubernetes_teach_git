@@ -44,6 +44,7 @@ Edit the Deployment and change the replicas from 1 to 2
 # kubectl edit deploy blue
 ```
 Check the currently running pods, deployments, services and replica sets ( we should now see 2 pods running)
+<br>
 *** Note - editing a running resource will change in the resource, but that will not change your Config file. It's a good practise to make changes in the Config file for maintainability. EDIT options are mostly used for quick debugging.
 
 
@@ -61,14 +62,13 @@ Check for the running pods, deploy, svc, rs
 $ kubectl get po,deploy,svc,rs -o wide
 ```
 
-Create a Deployment using the blue.yaml file
+Let's try to create the blue Deployment again using the blue.yaml file
 ```
 $ kubectl create -f blue.yaml
 ```
-Try again creating the same blue deployment and see what happens (this should give an error)
-```
-$ kubectl create -f blue.yaml
-```
+This will give an error, something like <br>
+Error from server (AlreadyExists): error when creating "blue.yaml": deployments.apps "blue" already exists
+
 Check for the running pods, deploy, svc, rs
 ```
 $ kubectl get po,deploy,svc,rs -o wide
