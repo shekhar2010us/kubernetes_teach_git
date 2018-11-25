@@ -20,6 +20,7 @@ Use Sample Infrastructure to create a bunch of Pods (even though in real life we
 ```
 kubectl create -f sample-infra-with-labels.yaml
 (creates a bunch of pods with labels)
+Wait for some time until all pods have been created
 ```
 
 ## Use various Selectors for pods
@@ -50,13 +51,22 @@ kubectl get pods -l 'release-version notin (1.0,2.0)' --show-labels
 ```
 ## add a label on an existing pod and delete the label 
 
-add a label to an existing pod
+Changing labels of an existing pod
 ```
-kubectl label po/helloworld app=helloworldapp --overwrite
+Add a new label
+# kubectl label po/cart-dev app=helloworldapp
+# kubectl get pods/cart-dev --show-labels
+
+Overwrite an existing label
+# kubectl label po/cart-dev app=helloworldapp2 --overwrite
+
+Note - if you do not specify "overwrite" option, it will complain that the KEY already has a VALUE
+
 ```
 delete a label to an existing pod
 ```
-kubectl label po/helloworld app-  (remove the label)
+remove the label
+kubectl label po/cart-dev app-
 ```
 
 # Delete pods, which match some of the given pods [delete, get with a specific label, works for deployment, replication set too]
