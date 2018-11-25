@@ -1,9 +1,6 @@
 
 ## Practise creating Pods, Deployments and Services
 
-Use the yaml files placed here
-(https://github.com/abhikbanerjee/Kubernetes_Exercise_Files/tree/master/helper_yaml_files/Ex_pods_deploy_svc)
-
 # Create a pod, deployment and service using the Imperative method
 Create a deployment nginx
 ```
