@@ -51,12 +51,11 @@ $ kubectl get hpa
 We will use the yaml files located in this section 
 https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex4/navbar-black.yaml
 
-Create the deployment and service for the navbar (record option is sometime used to record all the description)
+Create the deployment and service for the navbar
 ```
-$ kubectl create -f navbar-black.yaml --record 
+$ kubectl create -f navbar-black.yaml
 ```
 
-check the front end (in minikube this is equivalent to "minikube service header-service") , we can also do a
 ```
 $ kubectl get po,deploy,svc --show-labels -o wide 
 ```
