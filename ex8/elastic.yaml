@@ -5,8 +5,11 @@ changed to use deplpyment and scale deployments instead of pods, and Replica
 Sets will be used instead of dealing with Replication Controllers.
 
 ## Clone the examples repo
-
+```
+cd /root
 git clone https://github.com/kubernetes/examples.git
+cd examples/
+```
 
 Kubernetes makes it trivial for anyone to easily build and scale [Elasticsearch](http://www.elasticsearch.org/) clusters. Here, you'll find how to do so.
 Current Elasticsearch version is `5.6.2`.
