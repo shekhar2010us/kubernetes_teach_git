@@ -1,7 +1,6 @@
 # Create-Persistent-Volume
 
-We shall use the helper yaml files from this directory - 
-https://github.com/abhikbanerjee/Kubernetes_Exercise_Files/tree/master/helper_yaml_files/Ex_volume_pv_pvc
+We shall use the 'yaml' files from the current directory 
 
 ## Create your PersistentVolumes and PersistentVolumeClaims
 
@@ -20,11 +19,9 @@ spec:
       storage: 1Gi
 ```
 
-
 Create a wordpress-volumeclaim.yaml manifest for wordpress
 
 ```
-
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -43,10 +40,8 @@ These manifests describe PersistentVolumeClaims that each request 1Gi of storage
 To deploy them run:
 
 ```
-
-kubectl apply -f mysql-volumeclaim.yaml
-kubectl apply -f wordpress-volumeclaim.yaml
-
+kubectl apply -f mysql-pvc.yaml
+kubectl apply -f wordpress-pvc.yaml
 ```
 
 Check to see if your claims are bound:
