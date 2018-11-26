@@ -94,14 +94,14 @@ We prefer not to do that for the lab purpose, because the machines we use is not
 ```
 $ kubectl get service elasticsearch
 NAME            CLUSTER-IP      EXTERNAL-IP      PORT(S)                         AGE
-elasticsearch   10.47.252.248   35.200.115.240   9200:31394/TCP,9300:30907/TCP   6m
+elasticsearch   10.47.252.248   <pending>   9200:31394/TCP,9300:30907/TCP   6m
 ```
 
 You can do a describe for the service, and even see the Ips and other details. From any host on your cluster  we
 can use the port 9200, and from outside we can use the IP_address of the machine but on 31394 from this example run:
 
 ```
-$ curl 35.200.115.240:9200
+$ curl <AWS IP>:<NodePort>
 or go to browser http://public_ip:31394
 ```
 
@@ -136,8 +136,8 @@ You should see something similar to the following:
   "cluster_name" : "myesdb",
   "status" : "green",
   "timed_out" : false,
-  "number_of_nodes" : 3,
-  "number_of_data_nodes" : 3,
+  "number_of_nodes" : 1,
+  "number_of_data_nodes" : 1,
   "active_primary_shards" : 0,
   "active_shards" : 0,
   "relocating_shards" : 0,
@@ -195,12 +195,13 @@ Now its time to query our records (Go to the browser, and lets check our query r
 our 3 pods of ES instances running in Kubernetes.
 
 Verify all the PUT requestes were successful
+
 ```
+check URL http://<AWS IP>:<Load_Balancer_Port>/blog/_search
 check URL 'http://<Public_IP>:<Load_Balancer_Port>/blog/user/dilbert?pretty=true'
 check URL 'http://<Public_IP>:<Load_Balancer_Port>/blog/post/1?pretty=true'
 check URL 'http://<Public_IP>:<Load_Balancer_Port>/blog/post/2?pretty=true'
 check URL 'http://<Public_IP>:<Load_Balancer_Port>/blog/post/3?pretty=true'
-
 ```
 ### Searching Examples - 
 
@@ -212,8 +213,6 @@ go to URL 'http://<Public_IP>:<Load_Balancer_Port>/blog/post/_search?q=-title:se
 ```
 Go to URL 'http://<Public_IP>:<Load_Balancer_Port>/blog/post/_search?q=+title:search%20-title:distributed&pretty=true&fields=title'
 ```
-
-
 
 Reference:- http://www.elasticsearchtutorial.com/elasticsearch-in-5-minutes.html
 
