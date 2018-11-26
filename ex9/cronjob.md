@@ -1,9 +1,6 @@
 # Tutorial: Jobs and CronJobs
 
-In this tutorial we will learn how to create Jobs, CronJobs and inspect the containers and logs. we will use
-the yaml files from this git location
-
-https://github.com/abhikbanerjee/Kubernetes_Exercise_Files/tree/master/helper_yaml_files/Ex_job_cronjob
+In this tutorial we will learn how to create Jobs, CronJobs and inspect the containers and logs.
 
 ### Create a simple job 
 
@@ -30,7 +27,7 @@ $ kubectl logs pod <countdown-pod_name>
 ### Create a Cron Job
 
 ```
-$ kubectl create -f Ex_job_cronjob/cronjob.yaml 
+$ kubectl create -f cronjob.yaml 
 ```
 Check for the running cronjob,pods,svc
 
