@@ -64,7 +64,7 @@ Check to see if the pod is running
 kubectl get pod -l app=wordpress
 ```
 
-### Is there an Error or pending status?
+### Is there an Error or pending status? Why??
 hint:- Do we need to create an object to link it to the PVC (persistent Volume Claim).
 
 ### Solution
@@ -92,42 +92,16 @@ kubectl get pv,pvc -o wide
 ```
 ### Expose the wordpress service
 
-In the previous step, you have deployed a WordPress container which is not currently accessible from outside your cluster as it does not have an external IP address.
+In the previous step, you have deployed a WordPress container which is not currently accessible from outside your cluster as it does not have an external IP address. To expose your WordPress application to traffic from the internet using a load balancer (subject to billing), you need a Service with type:LoadBalancer.
 
-To expose your WordPress application to traffic from the internet using a load balancer (subject to billing), you need a Service with type:LoadBalancer.
-
-Create the wordpress-service.yaml
-
-```
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: wordpress
-  name: wordpress
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 80
-      targetPort: 80
-      protocol: TCP
-  selector:
-    app: wordpress
-
-```
-
-
-To deploy this manifest file, run:
-
+Use the `wordpress-service.yaml`
 ```
 kubectl create -f wordpress-service.yaml
 ```
 
 Check to see if the pod is running
-
 ```
 kubectl get svc -l app=wordpress
-
 ```
 
 In the output above, the EXTERNAL-IP column will show the public IP address created for your blog. Save this IP address for the next step.
