@@ -1,10 +1,11 @@
-# Elasticsearch for Kubernetes
+## Elasticsearch for Kubernetes
 
 This example uses only pods , and replication controllers to demonstrate the example. This example can be 
 changed to use deplpyment and scale deployments instead of pods, and Replica 
 Sets will be used instead of dealing with Replication Controllers.
 
-## Clone the examples repo
+### Clone the examples repo
+
 ```
 cd /root
 git clone https://github.com/kubernetes/examples.git
