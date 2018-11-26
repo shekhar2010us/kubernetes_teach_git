@@ -3,12 +3,11 @@
 
 # Create a Configmap and check log level
 
-We shall be using the yaml files in this folder - 
-https://github.com/abhikbanerjee/Kubernetes_Exercise_Files/tree/master/helper_yaml_files/Ex_configmaps
+We shall be using the yaml files in this folder. 
 
 ## Create a deployment which does not refer to config map ( has log level hard coded as error)
 ```
-$ kubectl create -f https://raw.githubusercontent.com/abhikbanerjee/Kubernetes_Exercise_Files/master/helper_yaml_files/Ex_configmaps/reader-deployment.yaml
+$ kubectl create -f reader-deployment.yaml
 ```
 Check if the Config Map was created
 ```
