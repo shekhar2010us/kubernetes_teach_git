@@ -33,11 +33,8 @@ kubectl create -f oneshotpod.yaml
 kubectl logs -p oneshot -c gen
 ```
 
-
 ## Cleanup
-
 ```
-kubectl delete -f https://raw.githubusercontent.com/mhausenblas/kbe/master/specs/logging/oneshotpod.yaml
-
+kubectl delete -f oneshotpod.yaml
 ```
 
