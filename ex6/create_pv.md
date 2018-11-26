@@ -57,9 +57,7 @@ kubectl get pvc
 Create a Kubernetes Secret to store the password for the database:
 
 ```
-kubectl create secret generic mysql --from-literal=password=YOUR_PASSWORD
-
-
+kubectl create secret generic mysql --from-literal=password=12345
 ```
 
 Create the following mysql.yaml manifest to deploy single instance MySQL
