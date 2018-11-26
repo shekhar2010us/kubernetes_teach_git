@@ -108,49 +108,16 @@ In the output above, the EXTERNAL-IP column will show the public IP address crea
 
 ## Visit your wordpress blog
 
-After finding out the IP address of your blog, point your browser to this IP address and you will see the WordPress 
-installation screen as follows.  Go throught the basic setup to make sure that stateful data is saved to your database.
-
-## Test data persistence on failure
-
-With PersistentVolumes, your data lives outside the application container. When your container becomes unavailable and gets rescheduled onto another compute instance by Kubernetes, Kubernetes Engine will make the PersistentVolume available on the instance that started running the Pod.
-
-Study your running pods and the node names
-
-```
-kubectl get pods -o=wide
-
-```
-
-Now delete the mysql pod:
-
-```
-
-kubectl delete pod -l app=mysql
-
-```
-
-Once the mysql pod is deleted, the deployement controller will notice the pod is now down and recreate a new Pod.  You can refresh your wordpress UI and see that the state of your wordpress application is saved!
-
-
-View your pods again and see that a new version pod is up and running.
-
-```
-kubectl get pods -o=wide
-
-```
-
+Use the AWS Machine IP with the NodePort to check the hosted wordpress service
 
 ## Cleaning up
 
 Delete the wordpress service
-
 ```
 kubectl delete service wordpress
 ```
 
 Delete the PersistantVolumes
-
 ```
 kubectl delete pvc wordpress-volumeclaim
 kubectl delete pvc mysql-volumeclaim
