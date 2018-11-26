@@ -18,7 +18,7 @@ spec:
         - image: mysql:5.6
           name: mysql
           env:
-            - name: MYSQL_ROOT_PASSWORD
+            - name: 12345
               valueFrom:
                 secretKeyRef:
                   name: mysql
