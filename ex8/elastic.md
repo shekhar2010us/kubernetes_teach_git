@@ -214,6 +214,11 @@ go to URL 'http://<Public_IP>:<Load_Balancer_Port>/blog/post/_search?q=-title:se
 Go to URL 'http://<Public_IP>:<Load_Balancer_Port>/blog/post/_search?q=+title:search%20-title:distributed&pretty=true&fields=title'
 ```
 
+cleanup
+```
+kubectl delete --all pods,svc,deploy,rc,rs --namespace=default
+```
+
 Reference:- http://www.elasticsearchtutorial.com/elasticsearch-in-5-minutes.html
 
 
