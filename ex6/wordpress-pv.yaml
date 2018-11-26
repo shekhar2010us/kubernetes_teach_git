@@ -14,5 +14,5 @@ spec:
     namespace: default
     name: wordpress-volumeclaim
   hostPath:
-    path: "/home/ubuntu/my_test_vol_wp/"
+    path: "/root/my_test_vol_wp"
 

@@ -4,53 +4,17 @@ We shall use the 'yaml' files from the current directory
 
 ## Create your PersistentVolumes and PersistentVolumeClaims
 
-Create a mysql-volumeclaim.yaml manifest with the following information
-
-```
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: mysql-volumeclaim
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-```
-
-Create a wordpress-volumeclaim.yaml manifest for wordpress
-
-```
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: wordpress-volumeclaim
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-```
-
-
-These manifests describe PersistentVolumeClaims that each request 1Gi of storage formatted with a filesystem. Note that a StorageClass has not been specified so these PersistentVolumeClaims will use the default StorageClass that will provision PersistentVolumes backed by persistent disks.
-
-To deploy them run:
-
+To deploy the PVC, run:
 ```
 kubectl apply -f mysql-pvc.yaml
 kubectl apply -f wordpress-pvc.yaml
 ```
 
 Check to see if your claims are bound:
-
 ```
 kubectl get pvc
 
 ```
-
 
 ## Setup MySQL
 
@@ -60,164 +24,48 @@ Create a Kubernetes Secret to store the password for the database:
 kubectl create secret generic mysql --from-literal=password=12345
 ```
 
-Create the following mysql.yaml manifest to deploy single instance MySQL
+The mysql.yaml manifest describes a Deployment with a single instance MySQL Pod which will have the MYSQL_ROOT_PASSWORD environment variable whose value is set from the secret created. The mysql container will use the PersistentVolumeClaim and mount the persistent disk at /var/lib/mysql inside the container.
 
 
-```
-
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: mysql
-  labels:
-    app: mysql
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: mysql
-  template:
-    metadata:
-      labels:
-        app: mysql
-    spec:
-      containers:
-        - image: mysql:5.6
-          name: mysql
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql
-                  key: password
-          ports:
-            - containerPort: 3306
-              name: mysql
-          volumeMounts:
-            - name: mysql-persistent-storage
-              mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-persistent-storage
-          persistentVolumeClaim:
-            claimName: mysql-volumeclaim
- ```
-
-This manifest describes a Deployment with a single instance MySQL Pod which will have the MYSQL_ROOT_PASSWORD environment variable whose value is set from the secret created. The mysql container will use the PersistentVolumeClaim and mount the persistent disk at /var/lib/mysql inside the container.
-
-
-Deploy manifest file
-
+Deploy manifest file `mysql.yaml`
 ```
 kubectl create -f mysql.yaml
-
 ```
 
 Check to see if the pod is running
-
 ```
 kubectl get pod -l app=mysql
 ```
 
-Create mysql-service.yaml manifest.
-
+Deploy the manifest `mysql-service.yaml`
 ```
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql
-  labels:
-    app: mysql
-spec:
-  type: ClusterIP
-  ports:
-    - port: 3306
-  selector:
-    app: mysql
-
-```
-
-Deploy the manifest 
-
-```
- kubectl create -f mysql-service.yaml
-
+kubectl create -f mysql-service.yaml
 ```
 
 Check to see if service was created
-
 ```
 kubectl get service mysql
 ```
 
 ## Deploy Wordpress
 
-Create the wordpress.yaml manifest
-
-```
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: wordpress
-  labels:
-    app: wordpress
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: wordpress
-  template:
-    metadata:
-      labels:
-        app: wordpress
-    spec:
-      containers:
-        - image: wordpress
-          name: wordpress
-          env:
-          - name: WORDPRESS_DB_HOST
-            value: mysql:3306
-          - name: WORDPRESS_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysql
-                key: password
-          ports:
-            - containerPort: 80
-              name: wordpress
-          volumeMounts:
-            - name: wordpress-persistent-storage
-              mountPath: /var/www/html
-      volumes:
-        - name: wordpress-persistent-storage
-          persistentVolumeClaim:
-            claimName: wordpress-volumeclaim
-
-````
-
+Use the `wordpress.yaml` manifest
 This manifest describes a Deployment with a single instance WordPress Pod. This container reads the WORDPRESS_DB_PASSWORD environment variable from the database password Secret you created earlier.
 
 This manifest also configures the WordPress container to communicate MySQL with the host address mysql:3306. This value is set on the WORDPRESS_DB_HOST environment variable. We can refer to the database as mysql, because of Kubernetes DNS allows Pods to communicate a Service by its name.
 
-
 Deploy the Manifest
-
 ```
-
 kubectl create -f wordpress.yaml
-
 ```
-Check to see if the pod is running
 
+Check to see if the pod is running
 ```
 kubectl get pod -l app=wordpress
-
 ```
 
-### Is there an Error ? Can you find out what the error shows ? Did you find the fix for the error ?
-
-Once you found the fix , You should see the pods restarting again. 
-
-hint:- Read the logs of the pod, and try to see if we need to create an object to link it to the PVC (persistent Volume Claim).
+### Is there an Error or pending status?
+hint:- Do we need to create an object to link it to the PVC (persistent Volume Claim).
 
 ### Solution
 
@@ -226,16 +74,17 @@ Delete the PV, PVC using the
 kubectl delete pv --all
 kubectl delete pvc --all
 ```
+
 Create the 2 directories
 ```
-mkdir /home/ubuntu/my_test_vol
-mkdir /home/ubuntu/my_test_vol_wp
+mkdir -p /root/my_test_vol
+mkdir -p /root/my_test_vol_wp
 ```
 
 Then recreate the PV, and the PVC again
 ```
 kubectl create -f mysql-pv.yaml -f wordpress-pv.yaml
-kubectl create -f mysql-volumeclaim.yaml -f wordpress-volumeclaim.yaml
+kubectl create -f mysql-pvc.yaml -f wordpress-pvc.yaml
 ```
 On Doing the get on PV, and PVC we should see the PVC binded to the PV's
 ```

@@ -14,5 +14,5 @@ spec:
     namespace: default
     name: mysql-volumeclaim
   hostPath:
-    path: "/home/ubuntu/my_test_vol/"
+    path: "/root/my_test_vol"
 
