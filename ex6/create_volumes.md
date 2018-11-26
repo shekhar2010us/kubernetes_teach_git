@@ -8,9 +8,8 @@
 Use a repo to create a new pod with shared colume
 
 ```
-	kubectl create -f https://raw.githubusercontent.com/mhausenblas/kbe/master/specs/volumes/pod.yaml
 
-
+        kubectl create -f pod.yaml
 	kubectl describe pod sharevol
 ```
 
