@@ -115,6 +115,9 @@ Use the AWS Machine IP with the NodePort to check the hosted wordpress service
 Delete the wordpress service
 ```
 kubectl delete service wordpress
+kubectl delete service mysql
+kubectl delete deployment.apps/mysql
+kubectl delete deployment.apps/wordpress
 ```
 
 Delete the PersistantVolumes
@@ -123,3 +126,12 @@ kubectl delete pvc wordpress-volumeclaim
 kubectl delete pvc mysql-volumeclaim
 ```
 
+check pv
+```
+# kubectl get pv
+You will see status:released
+
+# kubectl delete pv mysql-volume
+# kubectl delete pv wordpress-volume
+Still the directories you created in the master node won't get deleted, you may delete them manually
+```
