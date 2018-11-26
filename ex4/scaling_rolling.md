@@ -96,6 +96,10 @@ p.s - We can also see the history of the rollout , this is enabled by the --reco
 $ kubectl rollout history deployment/header-deployment
 ```
 
+Let's clean up
+```
+kubectl delete --all svc,deploy,pod,hpa --namespace=default
+```
 Ref:- https://www.linkedin.com/learning/learning-kubernetes/next-steps
 
 
