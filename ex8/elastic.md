@@ -37,6 +37,7 @@ The [io.fabric8:elasticsearch-cloud-kubernetes](https://github.com/fabric8io/ela
 If your cluster has the RBAC authorization mode enabled, create the additional `Role` and `RoleBinding` with:
 
 ```
+DO NOT RUN THIS, our's is not RBAC enabled
 kubectl create -f staging/elasticsearch/rbac.yaml
 ```
 
@@ -83,60 +84,8 @@ $ kubectl logs es-q8q2v
 So we have a 1-node Elasticsearch cluster ready to handle some work.
 
 ## Scale
-
-Scaling is as easy as:
-
-```
-kubectl scale --replicas=3 rc es
-```
-
-Did it work?
-
-```
-$ kubectl get pods
-NAME       READY     STATUS    RESTARTS   AGE
-es-95h78   1/1       Running   0          3m
-es-q8q2v   1/1       Running   0          6m
-es-qdcnd   1/1       Running   0          3m
-```
-
-Let's take a look at logs (you can see the logs for any of the 3 pods now):
-
-```
-$ kubectl logs es-q8q2v
-[2017-10-02T11:39:22,347][INFO ][o.e.n.Node               ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] initializing ...
-[2017-10-02T11:39:22,579][INFO ][o.e.e.NodeEnvironment    ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] using [1] data paths, mounts [[/data (/dev/sda1)]], net usable_space [92.5gb], net total_space [94.3gb], spins? [possibly], types [ext4]
-[2017-10-02T11:39:22,579][INFO ][o.e.e.NodeEnvironment    ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] heap size [503.6mb], compressed ordinary object pointers [true]
-[2017-10-02T11:39:22,581][INFO ][o.e.n.Node               ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] node name [ece3d296-dbd3-46a3-b66c-8b4c282610af], node ID [Rc-odsaESxSAnvOBFg4MNA]
-[2017-10-02T11:39:22,582][INFO ][o.e.n.Node               ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] version[5.6.2], pid[9], build[57e20f3/2017-09-23T13:16:45.703Z], OS[Linux/4.4.64+/amd64], JVM[Oracle Corporation/OpenJDK 64-Bit Server VM/1.8.0_131/25.131-b11]
-[2017-10-02T11:39:22,583][INFO ][o.e.n.Node               ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] JVM arguments [-XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -XX:+DisableExplicitGC, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -Djdk.io.permissionsUseCanonicalPath=true, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Dlog4j.skipJansi=true, -XX:+HeapDumpOnOutOfMemoryError, -Xms512m, -Xmx512m, -Des.path.home=/elasticsearch]
-[2017-10-02T11:39:24,386][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [aggs-matrix-stats]
-[2017-10-02T11:39:24,388][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [ingest-common]
-[2017-10-02T11:39:24,388][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [lang-expression]
-[2017-10-02T11:39:24,388][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [lang-groovy]
-[2017-10-02T11:39:24,388][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [lang-mustache]
-[2017-10-02T11:39:24,388][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [lang-painless]
-[2017-10-02T11:39:24,388][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [parent-join]
-[2017-10-02T11:39:24,388][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [percolator]
-[2017-10-02T11:39:24,388][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [reindex]
-[2017-10-02T11:39:24,389][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [transport-netty3]
-[2017-10-02T11:39:24,389][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] loaded module [transport-netty4]
-[2017-10-02T11:39:24,389][INFO ][o.e.p.PluginsService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] no plugins loaded
-[2017-10-02T11:39:27,395][INFO ][o.e.d.DiscoveryModule    ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] using discovery type [zen]
-[2017-10-02T11:39:28,754][INFO ][o.e.n.Node               ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] initialized
-[2017-10-02T11:39:28,758][INFO ][o.e.n.Node               ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] starting ...
-[2017-10-02T11:39:29,132][INFO ][o.e.t.TransportService   ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] publish_address {10.44.2.5:9300}, bound_addresses {10.44.2.5:9300}
-[2017-10-02T11:39:29,154][INFO ][o.e.b.BootstrapChecks    ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] bound or publishing to a non-loopback or non-link-local address, enforcing bootstrap checks
-[2017-10-02T11:39:32,264][INFO ][o.e.c.s.ClusterService   ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] new_master {ece3d296-dbd3-46a3-b66c-8b4c282610af}{Rc-odsaESxSAnvOBFg4MNA}{YvzOdsplT12C-9c7X3O8Xw}{10.44.2.5}{10.44.2.5:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
-[2017-10-02T11:39:32,315][INFO ][o.e.h.n.Netty4HttpServerTransport] [ece3d296-dbd3-46a3-b66c-8b4c282610af] publish_address {10.44.2.5:9200}, bound_addresses {10.44.2.5:9200}
-[2017-10-02T11:39:32,316][INFO ][o.e.n.Node               ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] started
-[2017-10-02T11:39:32,331][INFO ][o.e.g.GatewayService     ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] recovered [0] indices into cluster_state
-[2017-10-02T11:42:39,410][INFO ][o.e.c.s.ClusterService   ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] added {{8bcf8744-c48a-4ebb-86d8-e677a61141b7}{nFExy7_bS--Vcd42xrnFrw}{RQyzD2UnR--UUEfyfPuHgg}{10.44.0.5}{10.44.0.5:9300},}, reason: zen-disco-node-join[{8bcf8744-c48a-4ebb-86d8-e677a61141b7}{nFExy7_bS--Vcd42xrnFrw}{RQyzD2UnR--UUEfyfPuHgg}{10.44.0.5}{10.44.0.5:9300}]
-[2017-10-02T11:42:39,470][WARN ][o.e.d.z.ElectMasterService] [ece3d296-dbd3-46a3-b66c-8b4c282610af] value for setting "discovery.zen.minimum_master_nodes" is too low. This can result in data loss! Please set it to at least a quorum of master-eligible nodes (current value: [1], total number of master-eligible nodes used for publishing in this round: [2])
-[2017-10-02T11:42:42,586][INFO ][o.e.c.s.ClusterService   ] [ece3d296-dbd3-46a3-b66c-8b4c282610af] added {{3b2f3585-7706-416d-bede-c467a46ab30f}{eG6p9sJRQ9yShS97yL3pQg}{JqGe38AeSKmHQfLaICibQA}{10.44.1.5}{10.44.1.5:9300},}, reason: zen-disco-node-join[{3b2f3585-7706-416d-bede-c467a46ab30f}{eG6p9sJRQ9yShS97yL3pQg}{JqGe38AeSKmHQfLaICibQA}{10.44.1.5}{10.44.1.5:9300}]
-```
-
-So we have a 3-node Elasticsearch cluster ready to handle more work.
+If you want you can scale ES.
+We prefer not to do that for the lab purpose, because the machines we use is not too large.
 
 ## Access the service
 
