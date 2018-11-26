@@ -20,13 +20,11 @@ kubectl exec sharevol -it -c c2 -- bash
 cat /tmp/data/data
 ```
 
+Exit the container
+
 ### Cleanup
-
-```
-
 Delete all pods and volumes
-
-	kubectl delete po,svc --all
-
+```
+kubectl delete po,svc --all
 ```
 
