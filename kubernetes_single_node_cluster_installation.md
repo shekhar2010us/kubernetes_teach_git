@@ -62,23 +62,23 @@ Let's test it.
 ```bash
 kubectl run nginx --image=nginx --replicas=3
 
--- get the <ip-x-x-x-x> by running the command [kubectl get nodes -o wide]
+# get the <ip-x-x-x-x> by running the command [kubectl get nodes -o wide]
 kubectl describe nodes <ip-x-x-x-x>
--- check the output of describe -- you will find "Taints: node-role.kubernetes.io/master:NoSchedule"
+# check the output of describe -- you will find "Taints: node-role.kubernetes.io/master:NoSchedule"
 
--- delete the deployment we just created
+# delete the deployment we just created
 kubectl delete deployment.extensions/nginx
 
--- use master for scheduling
+# use master for scheduling
 kubectl taint nodes <ip-x-x-x-x> node-role.kubernetes.io/master:NoSchedule-
 
--- describe master node again and check the difference. you will find "Taints: <none>"
+# describe master node again and check the difference. you will find "Taints: <none>"
 kubectl describe nodes <ip-x-x-x-x>
 
--- schedule pod again (via deployment)
+# schedule pod again (via deployment)
 kubectl run nginx --image=nginx --replicas=3
 
--- check pods and deployment, you will find it now.
+# check pods and deployment, you will find it now.
 kubectl get pods -o wide
 kubectl get deployment -o wide
 ```
@@ -95,4 +95,24 @@ curl <public-ip>:<exposed port>
 OR
 curl <cluster-ip>:80
 ```
+<br><br>
+### Advanced 1: How to setup multi-node kube cluster - just discussion, no lab required
+> Install docker, kubeadm, kubelet in worker nodes - same as master <br>
+> In the worker: DO NOT "kubeadm init" and DO NOT "copy .kube/config" to home folder <br>
+> Get token from master by running the command
+[kubeadm  token create --print-join-command]
+> Run the output of the above command in the worker nodes
+> DO NOT taint master for scheduling
+
+<br><br>
+### Advanced 2: How to configure access to multiple clusters - just discussion, no lab required
+#### Configure local kubectl to connect to another master kube cluster - copy "cluster CA certificate" of the master cluster to a file {remote.cluster.ca.cert}
+	- kubectl config set-cluster master-cluster --server=<endpoint> --certificate-authority=remote.cluster.ca.cert
+	- kubectl config set-credentials master-cluster-admin --username <username> --password <password>
+	- verify by "kubectl config view"
+	* kubectl will still pull local kube cluster information if you run "kubectl get" commands
+	- create a context: kubectl config set-context frontend --cluster=master --namespace=frontend
+	- switch to the new context: kubectl config use-context frontend
+	* kubectl will now switch to new context and connect to master cluster. 
+	* Check kubectl config help to see different options to configure local kubectl [kubectl config --help]
 
