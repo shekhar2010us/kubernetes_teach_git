@@ -87,5 +87,6 @@ docker exec rsyslog tail -f /var/log/messages
 
 ```
 docker rm -f testlogging03
+docker rm -f testlogging04
 ```
 
