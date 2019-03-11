@@ -27,6 +27,8 @@ Create a container with log options for default json-file driver. Here the maxim
 docker run --rm --log-opt max-file=2  --log-opt max-size=1k --name testlogging02 -t -d -v $(pwd):/tmp  -w /tmp python:2.7 python -u testlogging.py
 ```
 
+If you check the `logpath` directory, you will see 2 log files.
+
 ## Cleanup
 
 ```
