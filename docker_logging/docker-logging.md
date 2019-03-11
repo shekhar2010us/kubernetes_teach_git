@@ -1,5 +1,8 @@
 # docker-logging
 
+## copy the python code to your system
+create a file "testlogging.py" and copy the content from the git
+
 ## Create a Python container executing the python log script with default 'json-file' driver
 
 ```
