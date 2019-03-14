@@ -71,7 +71,7 @@ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | gre
 https://<public-ip>:<nodeport>/#!/overview?namespace=default​
 
 # public-ip: IP of your machine
-# Nodeport: port can be accessed by running the command [kubectl get services -o wide]
+# Nodeport: port (for service "kubernetes-dashboard") can be accessed by running the command [kubectl get services -o wide --all-namespaces]
 ```
 
 
