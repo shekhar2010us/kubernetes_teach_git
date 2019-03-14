@@ -144,9 +144,6 @@ Error :- The ReplicaSet "soaktestrsbad" is invalid: spec.template.metadata.label
 ```
 
 
-The major difference is that the rolling-update command (we will see an example for this) works with Replication Controllers, 
-but won’t work with a Replica Set.  This is because Replica Sets are meant to be used as the backend for Deployments.
-
 Let’s clean up before we move on.
 
 ```
@@ -213,6 +210,4 @@ soaktest-3914185155-r2pt7   1/1       Running   0          2m
 You can see that there is 1 deployment, 5 pods (becaue of 5 replication), 1 replica set BUT no replication controller.
 This is because deployment created replica set but not replication controller
 ```
-
-Ref:- https://www.mirantis.com/blog/kubernetes-replication-controller-replica-set-and-deployments-understanding-replication-options/
 
