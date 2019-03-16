@@ -3,9 +3,8 @@
 delete all prior pods, deployments and services
 
 ```
-kubectl get pod,deploy,svc -o wide
-kubectl delete deploy <deploy_name>
-kubectl delete pod <pod_name>
+kubectl get pod,deploy,svc,rs,rc -o wide
+#kubectl delete all resources one by one for cleanup - delete svc,deployment,rs,rc
 ```
 ## Create a deployment
 ```
