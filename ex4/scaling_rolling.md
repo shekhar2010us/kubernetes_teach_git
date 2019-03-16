@@ -99,6 +99,3 @@ Let's clean up
 ```
 kubectl delete --all svc,deploy,pod,hpa --namespace=default
 ```
-Ref:- https://www.linkedin.com/learning/learning-kubernetes/next-steps
-
-
