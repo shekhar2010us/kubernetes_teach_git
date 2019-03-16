@@ -5,6 +5,7 @@
 You will be able to execute the below commands from any machine with docker, kubernetes and mvn installed. And for deploying to a Kubernetes cluster on AWS, that machine's kubeconfig should point to the correct cluster and the server urls.
 
 ```
+apt-get install -y maven
 # Go to the correct directory on your terminal window.
 cd /Users/sree/docker/jenkins
 
