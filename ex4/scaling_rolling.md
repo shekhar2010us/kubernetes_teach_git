@@ -8,7 +8,7 @@ kubectl get pod,deploy,svc,rs,rc -o wide
 ```
 ## Create a deployment
 ```
-$ kubectl create -f https://raw.githubusercontent.com/abhikbanerjee/Kubernetes_Exercise_Files/master/helper_yaml_files/Ex_combine_deploy_service/helloworld-all.yml 
+kubectl create -f https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex4/hello-world.yaml
 ```
 
 Check the deployments and pods
