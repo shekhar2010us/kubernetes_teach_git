@@ -3,9 +3,9 @@
 delete all prior pods, deployments and services
 
 ```
-$ kubectl get o,deploy,svc -o wide
-$ kubectl delete deploy <deploy_name>
-$ kubectl delete pod <pod_name>
+kubectl get pod,deploy,svc -o wide
+kubectl delete deploy <deploy_name>
+kubectl delete pod <pod_name>
 ```
 ## Create a deployment
 ```
@@ -14,16 +14,16 @@ $ kubectl create -f https://raw.githubusercontent.com/abhikbanerjee/Kubernetes_E
 
 Check the deployments and pods
 ```
-$ kubectl get po,deploy,svc -o wide
+kubectl get po,deploy,svc -o wide
 ```
 
 ## Scale on an existing deployment 
 
 Scale the deployment created in last step and see the effect on the number of pods, rs, and deployment 
 ```
-$ kubectl scale deploy helloworld-all-deployment --replicas=4
-Check the scaling in "describe", at the bottom in the "Events" section, you will see that it's scaled from 1 to 4
-$ kubectl describe deploy helloworld-all-deployment
+kubectl scale deploy helloworld-all-deployment --replicas=4
+#Check the scaling in "describe", at the bottom in the "Events" section, you will see that it's scaled from 1 to 4
+kubectl describe deploy helloworld-all-deployment
 ```
 
 ## Use Auto-Scaling on an existing deployment 
