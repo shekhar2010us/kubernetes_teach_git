@@ -8,26 +8,27 @@ $ git clone https://github.com/shekhar2010us/kubernetes_teach_git.git
 $ cd k8s_logging
 ```
 
-### Create a namespace
-```
-kubectl create ns kube-logging
-```
-
 ### Installation
 ```
-# install elasticsearch
-kubectl create -f elasticsearch_svc.yaml
-kubectl create -f elasticsearch_statefulset.yaml
+docker pull docker.elastic.co/elasticsearch/elasticsearch:6.5.4
 
+# install elasticsearch
+kubectl create -f elastic.yaml
 # verify
-kubectl get services --namespace=kube-logging
-kubectl get statefulset.apps -n kube-logging
+kubectl get all -o wide
+curl <public-ip>:<nodeport>
+
+# install kibana
+kubectl create -f kibana.yaml
+# verify
+kubectl get all -o wide
+curl <public-ip>:<nodeport>
+
 ```
 
 ### Destroy all resources
 ```
-kubectl delete -f elasticsearch_svc.yaml
-kubectl delete -f elasticsearch_statefulset.yaml
+kubectl delete -f elastic.yaml
+kubectl delete -f kibana.yaml
 ```
-
 
