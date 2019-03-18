@@ -1,4 +1,4 @@
-# K8s Advanced Logging (install using Helm)
+# K8s Advanced Logging
 
 ### 
 ```
@@ -24,11 +24,15 @@ kubectl create -f kibana.yaml
 kubectl get all -o wide
 curl <public-ip>:<nodeport>
 
+# sample app
+docker build -t fluentd-node-sample:latest -f sample-app/Dockerfile sample-app
+kubectl create -f node-deployment.yaml
 ```
 
 ### Destroy all resources
 ```
 kubectl delete -f elastic.yaml
 kubectl delete -f kibana.yaml
+kubectl delete -f node-deployment.yaml
 ```
 
