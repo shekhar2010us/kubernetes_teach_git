@@ -3,8 +3,8 @@
 ```
 # This step has already been done
 $ git clone https://github.com/shekhar2010us/kubernetes_teach_git.git
-# go to k8s_monitor
-$ cd k8s_monitor
+# go to k8s_monitor1
+$ cd k8s_monitor1
 ```
 
 ### Run cAdvisor Daemonset which K8s deploys the cAdvisor on every node in cluster
