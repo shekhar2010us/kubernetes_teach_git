@@ -40,6 +40,20 @@ In the below example, the nodeport is `30900`, yours might be different.
 * Access the Prometheus UI `http://<NODE IP>:30900`
 * try selecting some metrics, check the logs and create graphs
 
+### PromQL
+1. Return all time series with the metric http_requests_total:
+http_requests_total
+
+2. Return the per-second rate for all time series with the http_requests_total metric name, as measured over the last 5 minutes:
+rate(http_requests_total[5m])
+
+3. Assuming that the http_requests_total time series all have the labels job (fanout by job name) and instance (fanout by instance of the job), we might want to sum over the rate of all instances, so we get fewer output time series, but still preserve the job dimension:
+sum(rate(http_requests_total[5m]))
+
+4. Http request in the last hour
+increase(http_requests_total[1h])
+
+
 ### Create more deployment and services
 ```
 # deploy a deployment
