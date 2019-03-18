@@ -31,5 +31,6 @@ kubectl get pods --namespace kube-system
 ### Verify
 ```
 helm repo update
+helm list
 ```
 
