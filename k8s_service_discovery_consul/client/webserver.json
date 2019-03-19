@@ -1,0 +1,7 @@
+{
+  "service": {
+    "name": "webserver",
+    "tags": ["colourserver"],
+    "port": 80
+  }
+}

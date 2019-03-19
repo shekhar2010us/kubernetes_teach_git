@@ -1,0 +1,27 @@
+FROM ubuntu:trusty
+
+RUN apt-get update && apt-get install -y unzip zip nano tree curl wget screen dnsutils nginx
+
+# Setup Consul
+#COPY consul_1.4.3_linux_arm64.zip /usr/bin/consul.zip
+RUN wget https://releases.hashicorp.com/consul/1.4.3/consul_1.4.3_linux_arm64.zip -O /usr/bin/consul.zip
+WORKDIR /usr/bin
+RUN unzip /usr/bin/consul.zip && rm /usr/bin/consul.zip
+RUN mkdir /var/lib/consul
+RUN mkdir /etc/consul.d
+WORKDIR /etc/consul.d
+
+# Copy the nginx file to convert the master to a Nginx based load balancer
+COPY sites-available-default /etc/nginx/sites-available/default
+
+# Expose port 80 so that we can browse the load balancer
+EXPOSE 80
+
+# Let us indictate the node this way
+RUN hostname > /usr/share/nginx/html/index.html
+
+# Coopy the shell script for CMD
+COPY server.sh /usr/local/bin/server.sh
+RUN chmod 777 /usr/local/bin/server.sh
+RUN ls -l /usr/local/bin/server.sh
+CMD ["/usr/local/bin/server.sh"]

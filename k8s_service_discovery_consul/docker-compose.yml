@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  consul-master:
+    build:
+      context: ./server
+      dockerfile: Dockerfile-ubuntu-consul
+    hostname: consul-master
+    ports:
+    - "9191:80"    
+
+  consul-client1:
+    build:
+      context: ./client
+      dockerfile: Dockerfile-nginx-consul
+    hostname: consul-client1
+    depends_on:
+      - consul-master
+
+  consul-client2:
+    build:
+      context: ./client
+      dockerfile: Dockerfile-nginx-consul
+    hostname: consul-client2
+    depends_on:
+      - consul-master
+    

@@ -1,0 +1,30 @@
+FROM nginx:latest
+
+RUN apt-get update && apt-get install -y unzip zip nano tree curl wget screen dnsutils
+
+# Setup Consul
+#COPY consul_1.4.3_linux_arm64.zip /usr/bin/consul.zip
+RUN wget https://releases.hashicorp.com/consul/1.4.3/consul_1.4.3_linux_arm64.zip -O /usr/bin/consul.zip
+WORKDIR /usr/bin 
+RUN unzip /usr/bin/consul.zip && rm /usr/bin/consul.zip
+RUN mkdir /var/lib/consul
+RUN mkdir /etc/consul.d
+WORKDIR /etc/consul.d
+
+# Copy custom index page
+COPY index.html /usr/share/nginx/html/index.html
+
+# Copy the webserver service definition file
+# Each client agent will register the services available on them with the server
+# All the files in the folder set by the "config-dir" flag will be read and loaded when consul runs
+# If you make any changes to any of the files after consul is started use consul reload to apply them
+COPY webserver.json /etc/consul.d/webserver.json
+
+# Copy the shell script for CMD
+COPY client.sh /usr/local/bin/client.sh
+RUN chmod 777 /usr/local/bin/client.sh
+RUN ls -l /usr/local/bin/client.sh
+CMD ["/usr/local/bin/client.sh"]
+
+
+
