@@ -6,7 +6,7 @@ We will use three containers, one as the master and the other two as client node
 ```
 # This is already done, do not do it again
 git clone https://github.com/shekhar2010us/kubernetes_teach_git.git
-cd k8s_service_discovery_consul
+cd plain_service_discovery_consul
 
 # install docker-compose
 sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose

@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y unzip zip nano tree curl wget screen dn
 
 # Setup Consul
 #COPY consul_1.4.3_linux_arm64.zip /usr/bin/consul.zip
-RUN wget https://releases.hashicorp.com/consul/1.4.3/consul_1.4.3_linux_arm64.zip -O /usr/bin/consul.zip
+RUN wget https://releases.hashicorp.com/consul/1.4.3/consul_1.4.3_linux_amd64.zip -O /usr/bin/consul.zip
 WORKDIR /usr/bin 
 RUN unzip /usr/bin/consul.zip && rm /usr/bin/consul.zip
 RUN mkdir /var/lib/consul
