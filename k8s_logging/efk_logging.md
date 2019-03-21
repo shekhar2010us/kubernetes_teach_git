@@ -15,6 +15,12 @@ kubectl create ns logging
 # Elasticsearch
 kubectl run elasticsearch --image=docker.elastic.co/elasticsearch/elasticsearch:6.3.2 -n logging
 kubectl expose deploy elasticsearch --port 9200 -n logging
+
+## check if your ES pod is getting killed, check the logs. One of the reasons may be max_map_memory. If that's the case.
+### delete the namespace
+### sudo sysctl -w vm.max_map_count=262144
+### repeat creating namespace and creating ES resources
+
 # verify
 kubectl get all -o wide -n logging
 curl <cluster-ip-es-service>:9200

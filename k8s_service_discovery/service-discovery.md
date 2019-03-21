@@ -2,8 +2,8 @@
 Let us create a service names `thesvc` and a Replication Controller supervisng some pods.
 
 ```
-kubectl apply rc.yaml
-kubectl apply svc.yaml
+kubectl apply -f rc.yaml
+kubectl apply -f svc.yaml
 ```
 
 Now we want to connect to the `thesvc` service from within the cluster, say, from another service. To simulate this, we create a jump pod in the same namespace (default, since we didn’t specify anything else).

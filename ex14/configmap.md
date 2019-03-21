@@ -6,7 +6,9 @@
 We shall be using the yaml files in this folder. 
 
 ## Create a deployment which does not refer to config map ( has log level hard coded as error)
+
 ```
+# cd to ex14
 $ kubectl create -f reader-deployment.yaml
 ```
 
@@ -48,7 +50,4 @@ $ kubectl describe <pod_name>
 
 $ kubectl logs <pod_name>
 ```
-
-
-Ref:- https://www.linkedin.com/learning/learning-kubernetes/next-steps
 
