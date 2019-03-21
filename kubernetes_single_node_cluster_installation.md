@@ -70,7 +70,8 @@ kubectl describe nodes <ip-x-x-x-x>
 kubectl delete deployment.extensions/nginx
 
 # use master for scheduling
-kubectl taint nodes <ip-x-x-x-x> node-role.kubernetes.io/master:NoSchedule-
+ip=`kubectl get nodes | grep master | awk -F" " '{print $1}'`
+kubectl taint nodes $ip node-role.kubernetes.io/master:NoSchedule-
 
 # describe master node again and check the difference. you will find "Taints: <none>"
 kubectl describe nodes <ip-x-x-x-x>

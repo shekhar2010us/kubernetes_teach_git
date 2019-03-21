@@ -6,12 +6,12 @@ Create a bunch of pods with various labels, so we can operate on these pods
 Let’s take a look at what we have created:
 
 ```
-# kubectl get po
+kubectl get po
 ```
 You can get more details by showing and displaying the labels:
 
 ```
-# kubectl get po --show-labels
+kubectl get po --show-labels
 ```
 ## Create a list of Pods with labels
 
@@ -19,8 +19,8 @@ Use Sample Infrastructure to create a bunch of Pods (even though in real life we
 
 ```
 kubectl create -f sample-infra-with-labels.yaml
-(creates a bunch of pods with labels)
-Wait for some time until all pods have been created
+#(creates a bunch of pods with labels)
+#Wait for some time until all pods have been created
 ```
 
 ## Use various Selectors for pods
@@ -53,20 +53,20 @@ kubectl get pods -l 'release-version notin (1.0,2.0)' --show-labels
 
 Changing labels of an existing pod
 ```
-Add a new label
-# kubectl label po/cart-dev app=helloworldapp
-# kubectl get pods/cart-dev --show-labels
+#Add a new label
+kubectl label po/cart-dev app=helloworldapp
+kubectl get pods/cart-dev --show-labels
 
-Overwrite an existing label
-# kubectl label po/cart-dev app=helloworldapp2 --overwrite
+#Overwrite an existing label
+kubectl label po/cart-dev app=helloworldapp2 --overwrite
 
 Note - if you do not specify "overwrite" option, it will complain that the KEY already has a VALUE
 
 ```
 delete a label to an existing pod
 ```
-remove the label
-# kubectl label po/cart-dev app-
+#remove the label
+kubectl label po/cart-dev app-
 ```
 
 # Delete pods, which match some of the given pods [delete, get with a specific label, works for deployment, replication set too]

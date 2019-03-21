@@ -25,6 +25,6 @@ Exit the container
 ### Cleanup
 Delete all pods and volumes
 ```
-kubectl delete po,svc --all
+kubectl delete po sharevol
 ```
 
