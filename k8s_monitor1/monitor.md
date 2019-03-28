@@ -61,9 +61,9 @@ kubectl create -f nginx.yaml
 # expose as service
 kubectl expose deployment my-nginx --type=LoadBalancer --name=nginx-service
 # access the nginx service from a browser using the nodeport (you can get this by running describe) `kubectl describe service nginx-service`
+```
 
-You can also call nginx service multiple times in a bash script
-
+<br>You can also call nginx service multiple times in a bash script
 ```
 for i in {1..100};
   do
@@ -73,7 +73,6 @@ for i in {1..100};
 ```
 
 # Check the Prometheus UI again
-```
 
 ### Destroy all resources
 ```
