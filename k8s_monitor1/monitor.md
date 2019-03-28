@@ -62,6 +62,15 @@ kubectl create -f nginx.yaml
 kubectl expose deployment my-nginx --type=LoadBalancer --name=nginx-service
 # access the nginx service from a browser using the nodeport (you can get this by running describe) `kubectl describe service nginx-service`
 
+You can also call nginx service multiple times in a bash script
+```
+for i in {1..100};
+  do
+    curl <cluster-ip>:80
+    sleep 0.01
+  done
+```
+
 # Check the Prometheus UI again
 ```
 
