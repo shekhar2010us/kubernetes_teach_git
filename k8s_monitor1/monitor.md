@@ -72,7 +72,7 @@ for i in {1..100};
   done
 ```
 
-# Check the Prometheus UI again
+Check the Prometheus UI again
 
 ### Destroy all resources
 ```
