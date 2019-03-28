@@ -22,7 +22,7 @@ docker-compose logs -f consul-client1
 docker-compose logs -f consul-client2
 ```
 Let us get inside the master to try the service resolution using the dig command.
-
+<br> The command dig is a tool for querying DNS nameservers for information about host addresses, mail exchanges, nameservers, and related information.
 ```
 docker-compose exec consul-master bash
 ```
