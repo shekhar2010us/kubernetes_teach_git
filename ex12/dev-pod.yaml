@@ -4,6 +4,7 @@ metadata:
   name: nginx-dev
   labels:
     app: nginx
+    env: dev
 spec:
   containers:
   - name: nginx
