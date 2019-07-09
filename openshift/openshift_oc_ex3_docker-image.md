@@ -202,24 +202,5 @@ parksmap   parksmap-shekhar-secondproject.apps.us-west-2.online-starter.openshif
 -- You can describe the route to see its details
 
 ## Command
-{oc describe route/parksmap}
+oc describe route/parksmap
 ```
-
-
-- <b>Clean up the project</b><br>
-The limitation of using OpenShift Online is that you do not have sufficient permission to delete the project using CLI which are created in web-console. But if you created a project in CLI, you should be able to delete it.
-
-```
-## Command
-oc delete project <your project name>
-
-## Output expected
-project.project.openshift.io "<project name>" deleted
-
-## Command
-oc projects
-
-## Output expected
-You are not a member of any projects. You can request a project to be created with the 'new-project' command.
-```
-
