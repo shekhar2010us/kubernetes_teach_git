@@ -16,12 +16,16 @@ Goal for this exercise is to use `OC CLI` to deploy a simple application and und
 
 #### CODE BLOCK
 
+#### <b>Fork and clone a git repo</b>
+1. Fork the git project into your local - https://github.com/shekhar2010us/openshift-helloworld.git
+2. `git clone <your repository>`
+
 
 - <b>Create a new app:</b>
 
 ```
 ## Command
-oc new-app openshift/wildfly-100-centos7:latest~https://github.com/shekhar2010us/openshift-helloworld.git
+oc new-app openshift/wildfly-100-centos7:latest~<your git repo>
 ```
 
 - <b>Check and describe resources</b>
@@ -98,21 +102,12 @@ oc get routes -o wide
 oc describe route/openshift-helloworld
 ```
 
+----------
 
-- <b>Clean up the project</b><br>
-The limitation of using OpenShift Online is that you do not have sufficient permission to delete the project using CLI which are created in web-console. But if you created a project in CLI, you should be able to delete it.
+## <b>Re-build the app</b><br>
 
-```
-## Command
-oc delete project <your project name>
-
-## Output expected
-project.project.openshift.io "<project name>" deleted
-
-## Command
-oc projects
-
-## Output expected
-You are not a member of any projects. You can request a project to be created with the 'new-project' command.
-```
+1. Make changes in the index.html file
+2. Push the change to git
+3. In the web-browser, Go to "builds", and click on "start-build"
+4. You should see the change that you made in "index.html" in the web browser for the app
 
