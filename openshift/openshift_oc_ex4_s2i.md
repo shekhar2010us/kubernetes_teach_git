@@ -7,11 +7,16 @@ Goal for this exercise is to use `OC CLI` to deploy a simple application and und
 <p><b> Steps needed to perform are mentioned below </b>
 
 ```
-- use the existing project <your-name>-secondproject
-- Create app for deploying with s2i using git – "https://github.com/shekhar2010us/openshift-helloworld.git"
-- Scale up pod; Check logs; Check events
-- Check Image Stream
-- Create route to expose external service
+Create a new project  <your-name>-secondproject
+Create an App using S2I --> using Wildfly 10.0
+Provide name “openshift-helloworld”
+Fork the git https://github.com/shekhar2010us/openshift-helloworld.git
+Provide Git repo “<your forked repo>”
+Scale up pod; Check logs; Check events
+Check Build; Check build config
+Check Image Stream
+Create route to expose external service
+
 ```
 
 #### CODE BLOCK
@@ -20,6 +25,27 @@ Goal for this exercise is to use `OC CLI` to deploy a simple application and und
 1. Fork the git project into your local - https://github.com/shekhar2010us/openshift-helloworld.git
 2. `git clone <your repository>`
 
+
+- <b>Create a new project:</b>
+<br><u>Note:</u> If using OpenShift online version, only one project per user is allowed, as it belongs to the experimental plan. </i>
+
+
+```
+## Command
+oc new-project <yourname>-secondproject --display-name="<provide display name>" --description="<provide description>"
+
+## Logs expected
+Now using project "shekhar-secondproject" on server "https://api.us-west-2.online-starter.openshift.com:6443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app django-psql-example
+
+to build a new example application in Python. Or use kubectl to deploy a simple Kubernetes application:
+
+    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+
+```
 
 - <b>Create a new app:</b>
 
