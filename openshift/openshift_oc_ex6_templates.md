@@ -24,3 +24,5 @@ oc get templates
 oc describe template mlbparks-wildfly
 oc new-app ruby-helloworld-sample --name="mlbparks"
 ```
+
+-------
