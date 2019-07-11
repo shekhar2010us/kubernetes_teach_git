@@ -7,8 +7,8 @@ Goal for this exercise is to use `OC CLI` to deploy a simple application and und
 <p><b> Steps needed to perform are mentioned below </b>
 
 ```
-- use the existing project <your-name>-firstproject
-- Create app for deploying with s2i using git – "https://github.com/openshift-roadshow/nationalparks-katacoda"
+- use the existing project <your-name>-secondproject
+- Create app for deploying with s2i using git – "https://github.com/shekhar2010us/openshift-helloworld.git"
 - Scale up pod; Check logs; Check events
 - Check Image Stream
 - Create route to expose external service

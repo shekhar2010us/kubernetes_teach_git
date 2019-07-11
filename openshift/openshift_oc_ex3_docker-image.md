@@ -25,7 +25,7 @@ Goal for this exercise is to use `OC CLI` to deploy a simple application and und
 <p><b> Steps needed to perform are mentioned below </b>
 
 ```
-- Create a new project <your-name>-firstproject
+- Create a new project <your-name>-secondproject
 - Create app for deploying with image – "openshiftroadshow/parksmap-katacoda:1.2.0"
 - Scale up pod; Check logs; Check events
 - Check Image Stream
