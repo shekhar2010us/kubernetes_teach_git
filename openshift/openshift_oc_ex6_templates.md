@@ -6,6 +6,7 @@
 ```
 - Create a new project
 - Add a template
+- Use the template to create app
 ```
 
 
@@ -16,12 +17,10 @@
 ```
 oc new-project <yourname>-parksapp --display-name="Baseball Parks Application Stack"
 
-oc create -f https://github.com/openshift/origin/blob/master/examples/quickstarts/nodejs-mongodb.json
+# Download the file {https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/openshift/mlbparks-template.json} to local with name: mlbparks-template.json
+
+oc create -f mlbparks-template.json
+oc get templates
+oc describe template mlbparks-wildfly
+oc new-app ruby-helloworld-sample --name="mlbparks"
 ```
-
-
-#### <b>Make changes that will trugger re-building the app</b><br>
-
-1. Make changes in the index.html file
-2. Push the change to git
-3. In the web-browser, Go to "builds".. There should be a new build in progress
