@@ -21,7 +21,7 @@ Goal for this exercise is to use `OC CLI` to deploy a simple application and und
 
 ```
 ## Command
-
+oc new-app openshift/wildfly-100-centos7:latest~https://github.com/shekhar2010us/openshift-helloworld.git
 ```
 
 - <b>Check and describe resources</b>
@@ -35,18 +35,18 @@ oc get all -o wide
 ## Other Commands
 oc get pod
 oc get dc
-oc describe service/nationalparks-katacoda
+oc describe service/openshift-helloworld
 oc get event
-oc edit service/nationalparks-katacoda
+oc edit service/openshift-helloworld
 oc logs pod/<pod_name>
-oc logs dc/nationalparks-katacoda
+oc logs dc/openshift-helloworld
 oc get bc -o wide
 oc get is
 
 oc get pod --all-namespaces -o wide
 # The above command need sufficient access to see all pods in all namespaces. In our current setting, this access is not provided to a free user.
 
-oc exec -it <nationalparks-katacoda-pod_name> /bin/bash
+oc exec -it <openshift-helloworld-pod_name> /bin/bash
 # if you run {exec}, this takes you to the command prompt of the container, you will need to {exit} to come back to local terminal
 ```
 
@@ -54,19 +54,19 @@ oc exec -it <nationalparks-katacoda-pod_name> /bin/bash
 
 ```
 ## Command
-oc describe dc nationalparks-katacoda
+oc describe dc openshift-helloworld
 
 ## Output expected
 
 
 ## Command
-oc scale --replicas=2 dc nationalparks-katacoda
+oc scale --replicas=2 dc openshift-helloworld
 
 ## Output expected
 
 
 # Command
-oc describe dc nationalparks-katacoda
+oc describe dc openshift-helloworld
 # Upon describing again, you can see that the new replica is now 2.
 ```
 
@@ -74,14 +74,14 @@ oc describe dc nationalparks-katacoda
 
 ```
 ## Command
-oc describe service/nationalparks-katacoda
+oc describe service/openshift-helloworld
 
 
 ## Command
-oc expose service nationalparks-katacoda --name=nationalparksmap --port=8080
+oc expose service openshift-helloworld --name=openshift-helloworld --port=8080
 
 ## Output expected
-route.route.openshift.io/nationalparksmap exposed
+route.route.openshift.io/openshift-helloworld exposed
 -- This creates a new route
 
 
@@ -95,7 +95,7 @@ oc get routes -o wide
 -- You can describe the route to see its details
 
 ## Command
-oc describe route/nationalparksmap
+oc describe route/openshift-helloworld
 ```
 
 
