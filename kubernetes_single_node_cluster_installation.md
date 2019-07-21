@@ -96,6 +96,15 @@ curl <public-ip>:<exposed port>
 OR
 curl <cluster-ip>:80
 ```
+<br>
+
+#### clean-up
+```bash
+kubectl delete service nginx
+kubectl delete deployment nginx
+```
+
+
 <br><br>
 ### Advanced 1: How to setup multi-node kube cluster - just discussion, no lab required
 > Install docker, kubeadm, kubelet in worker nodes - same as master <br>
