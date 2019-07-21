@@ -49,5 +49,7 @@ $ kubectl get po,deploy -o wide
 $ kubectl describe <pod_name>
 
 $ kubectl logs <pod_name>
+
+kubectl delete --all pods --namespace=default
 ```
 

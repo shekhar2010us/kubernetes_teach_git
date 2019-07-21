@@ -128,10 +128,10 @@ kubectl delete pvc mysql-volumeclaim
 
 check pv
 ```
-# kubectl get pv
-You will see status:released
+kubectl get pv
+#You will see status:released
 
-# kubectl delete pv mysql-volume
-# kubectl delete pv wordpress-volume
-Still the directories you created in the master node won't get deleted, you may delete them manually
+kubectl delete pv mysql-volume
+kubectl delete pv wordpress-volume
+#Still the directories you created in the master node won't get deleted, you may delete them manually
 ```

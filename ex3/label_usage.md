@@ -81,6 +81,6 @@ delete all pods in a namespace (we will see namespace in detail later. But right
 ```
 kubectl delete --all pods --namespace=default
 ```
-Ref:- https://www.linkedin.com/learning/learning-kubernetes/next-steps
+
 
 
