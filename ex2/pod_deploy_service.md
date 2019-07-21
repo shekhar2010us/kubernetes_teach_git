@@ -33,6 +33,13 @@ Do a describe on the nginx service , using the IP try doing a curl for that port
 kubectl describe svc nginx-service
 # verify by
 curl <ip_address>:<port_number>
+
+# Other ways to verify
+kubectl proxy &
+curl http://localhost:8001/api/v1/namespaces/default/services/nginx-service/proxy/
+curl http://$(kubectl get svc nginx-service --template='{{.spec.clusterIP}}'):80
+kubectl delete svc nginx-service
+kubectl delete deploy nginx-deployment
 ```
 
 # Create a Service from a Pod
@@ -59,7 +66,7 @@ check running services again
  kubectl get po,deploy,svc,rs -o wide
 ```
 
-verify
+#### verify
 
 ```
 kubectl describe svc nginx-apparmor-service
