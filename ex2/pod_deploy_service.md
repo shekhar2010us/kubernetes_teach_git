@@ -48,6 +48,22 @@ kubectl delete deploy nginx-deployment
 kubectl create -f sample_pod.yaml
 ```
 
+Use `exec` and `logs` commands
+
+```
+IP=`kubectl describe pod/nginx-apparmor | grep -i "IP:" | awk -F" " '{print $2}'`
+curl $IP:80
+curl $IP:80
+curl $IP:80
+kubectl logs pod/nginx-apparmor
+# You will see the logs
+
+kubectl exec -it pod/nginx-apparmor /bin/bash
+# this will take you to the container
+# if pod has multiple containers, use -c option for container name
+exit -- to come out of the container
+```
+
 Check the currently running pods
 
 ```
