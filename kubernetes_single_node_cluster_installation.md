@@ -102,6 +102,8 @@ curl <cluster-ip>:80
 ```bash
 kubectl delete service nginx
 kubectl delete deployment nginx
+## wait for 5 seconds
+kubectl get all
 ```
 
 

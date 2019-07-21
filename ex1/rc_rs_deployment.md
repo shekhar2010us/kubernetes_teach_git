@@ -77,86 +77,159 @@ except that they have more options for the selector. Use the file rs.yaml for th
 
 rs.yaml file is located in - https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex1/rs.yaml
 
-In this case, it’s more or less the same as when we were creating the Replication Controller, 
-except we’re using matchLabels instead of label.  But we could just as easily have said (has matchExpressions):
+<b>The first rs.yaml file is similar to rc.yaml</b>
 
 ```
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: soaktestrs
 spec:
-   replicas: 3
-   selector:
-     matchExpressions:
-      - {key: app, operator: In, values: [soaktestrs, soaktestrs, soaktest]}
-      - {key: teir, operator: NotIn, values: [production]}
+  replicas: 3
+  selector:
+    matchLabels:
+      app: soaktestrs
   template:
-     metadata:
+    metadata:
+      labels:
+        app: soaktestrs
+        environment: dev
+    spec:
+      containers:
+      - name: soaktestrs
+        image: nickchase/soaktest
+        ports:
+        - containerPort: 80
 ```
 
-In the above case, we’re looking at two different conditions: The app label must be soaktestrc, soaktestrs, or soaktest
-<br> The tier label (if it exists) must not be production
+Go ahead and create the replica-set, describe and delete it.
+You may chose to skip this part, as this replica-set is similar to replication-controller we checked earlier.
+
+
+### Replica set with more options
+
+`https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex1/rs_selector2.yaml`
+
+```
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: soaktestrs1
+spec:
+  replicas: 3
+  selector:
+   matchExpressions:
+     - {key: app, operator: In, values: [soaktestrs, soaktestrs, soaktest]}
+     - {key: tier, operator: NotIn, values: [production]}
+  template:
+    metadata:
+      labels:
+        app: soaktestrs
+        environment: dev
+    spec:
+      containers:
+      - name: soaktestrs
+        image: nickchase/soaktest
+        ports:
+        - containerPort: 80
+```
+
+In this case, it’s more or less the same as when we were creating the Replication Controller, except we’re using matchLabels instead of label.  But we could just as easily have said (has matchExpressions):
+
+
+Two different conditions defined in matchExpressions:
+> The app label must be soaktestrs, soaktestrs or soaktest <br>
+> The tier label (if it exists) must not be production
+
 <br>Let’s go ahead and create the Replica Set and get a look at it:
 
 ```
-# kubectl create -f rs.yaml
-replicaset "soaktestrs" created
+# kubectl create -f rs_selector2.yaml
+replicaset.extensions/soaktestrs1 created
 ```
 We can describe the Replica Sets
 
 ```
-# kubectl describe rs soaktestrs
-Name:           soaktestrs
-Namespace:      default
-Image(s):       nickchase/soaktest
-Selector:       app in (soaktest,soaktestrs),teir notin (production)
-Labels:         app=soaktestrs
-Replicas:       3 current / 3 desired
-Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
-No volumes.
+# kubectl describe replicaset soaktestrs1
+Name:         soaktestrs1
+Namespace:    default
+Selector:     app in (soaktest,soaktestrs,soaktestrs),tier notin (production)
+Labels:       app=soaktestrs
+              environment=dev
+Annotations:  <none>
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=soaktestrs
+           environment=dev
+  Containers:
+   soaktestrs:
+    Image:        nickchase/soaktest
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
 Events:
-  FirstSeen     LastSeen        Count   From                            SubobjectPath   Type    Reason                   Message
-  ---------     --------        -----   ----                            -------------   --------------                   -------
-  1m            1m              1       {replicaset-controller }                        Normal  SuccessfulCreate Created pod: soaktestrs-it2hf
-  1m            1m              1       {replicaset-controller }                       Normal  SuccessfulCreate Created pod: soaktestrs-kimmm
-  1m            1m              1       {replicaset-controller }                        Normal  SuccessfulCreate Created pod: soaktestrs-8i4ra
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  27s   replicaset-controller  Created pod: soaktestrs1-7xmr5
+  Normal  SuccessfulCreate  27s   replicaset-controller  Created pod: soaktestrs1-m2fqj
+  Normal  SuccessfulCreate  27s   replicaset-controller  Created pod: soaktestrs1-rt68h  
 ```
+
 We can get the pods
+
 ```
 # kubectl get pods
 NAME               READY     STATUS    RESTARTS   AGE
-soaktestrs-8i4ra   1/1       Running   0          1m
-soaktestrs-it2hf   1/1       Running   0          1m
-soaktestrs-kimmm   1/1       Running   0          1m
+soaktestrs1-7xmr5   1/1     Running   0          74s
+soaktestrs1-m2fqj   1/1     Running   0          74s
+soaktestrs1-rt68h   1/1     Running   0          74s
 ```
+
 As we can see, the output is pretty much the same as for a Replication Controller (except for the selector), 
 and for most intents and purposes, they are similar.  
 
-Exploration :- To see the errors when the labels and selectors does not match , feel free to try out the other 2 replica sets
-in the same location :-
+##### Cleanup
 
 ```
-kubectl create -f rs_selector2.yaml
-kubectl get po,rs --show-labels
+kubectl delete replicaset soaktestrs1
 ```
-and this gives an error 
+
+<br><b>Explore bad options</b> :- To see the errors when the labels and selectors does not match , feel free to try out the other replica set in the same location that has a mis-matched label:-
+
 
 ```
+# This should give error
 kubectl create -f rs_selector2_bad.yaml 
 Error :- The ReplicaSet "soaktestrsbad" is invalid: spec.template.metadata.labels: Invalid value: map[string]string{"app":"soaktestrspq", "tier":"prod"}: `selector` does not match template `labels`
+
+## Fix
+Add the required label to the matchExpression like below:
+matchExpressions:
+     - {key: app, operator: In, values: [soaktestrs, soaktestrs, soaktest, soaktestrspq]}
+# Create the resource again
 ```
 
 
-Let’s clean up before we move on.
+##### Cleanup
 
 ```
-# kubectl delete rs soaktestrs
-replicaset "soaktestrs" deleted
-# kubectl delete rs soaktestrs1
-replicaset "soaktestrs1" deleted
+kubectl delete rs soaktestrs
+# replicaset "soaktestrs" deleted
+kubectl delete rs soaktestrs1
+# replicaset "soaktestrs1" deleted
+kubectl delete rs soaktestrsbad
+# replicaset "soaktestrsbad" deleted
 ```
+
 Again, the pods that were created are deleted when we delete the Replica Set.
 ```
-# kubectl get pods,rc,rs
---- there shouldn't be any pod, rc, rs resources available. If you have any then delete it.
+# kubectl get all -o wide
+--- There shouldn't be any resource.
 ```
+
 ## Deployments
 
 Deployments are intended to replace Replication Controllers.  They provide the same replication functions
@@ -170,8 +243,9 @@ Now go ahead and create the Deployment:
 
 ```
 # kubectl create -f deploy_backed_by_rs.yaml
-deployment "soaktest" created
+deployment.extensions/soaktest created
 ```
+
 Now let’s go ahead and describe the Deployment:
 ```
 # kubectl describe deployment soaktest
@@ -192,6 +266,7 @@ Events:
   38s           38s             1       {deployment-controller }                        Normal  ScalingReplicaSet        Scaled up replica set soaktest-3914185155 to 3
   36s           36s             1       {deployment-controller }                        Normal  ScalingReplicaSet        Scaled up replica set soaktest-3914185155 to 5
   ```
+  
 As you can see, rather than listing the individual pods, Kubernetes shows us the Replica Set.  
 Notice that the name of the Replica Set is the Deployment name and a hash value.
 
@@ -211,3 +286,9 @@ You can see that there is 1 deployment, 5 pods (becaue of 5 replication), 1 repl
 This is because deployment created replica set but not replication controller
 ```
 
+##### Cleanup
+
+```
+kubectl delete deployment.apps/soaktest
+# This deletes deployment, resplica-set and pods
+```
