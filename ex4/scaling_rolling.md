@@ -8,10 +8,10 @@ kubectl get pod,deploy,svc,rs,rc -o wide
 kubectl delete --all deploy,pods,svc,hpa -n default
 ```
 
-## Create a deployment
+## Create a deployment and a svc
 
 ```
-kubectl create -f https://raw.githubusercontent.com/abhikbanerjee/Kubernetes_Exercise_Files/master/helper_yaml_files/Ex_combine_deploy_service/helloworld-all.yml
+kubectl create -f helloworld-dep-svc.yaml
 ```
 
 Check the deployments and pods
@@ -25,29 +25,19 @@ kubectl get po,deploy,svc -o wide
 Scale the deployment created in last step and see the effect on the number of pods, rs, and deployment 
 
 ```
-kubectl scale deploy helloworld-all-deployment --replicas=4
-#Check the scaling in "describe", at the bottom in the "Events" section, you will see that it's scaled from 1 to 4
+kubectl scale deploy helloworld-all-deployment --replicas=2
+
+#Check the scaling in "describe", at the bottom in the "Events" section, you will see that it's scaled from 1 to 2
+
 kubectl describe deploy helloworld-all-deployment
 ```
 
-## Use Auto-Scaling on an existing deployment 
+## Use Auto-Scaling on an existing deployment
 
-### Create a nginx deployment
-
-```
-$ kubectl run nginx-deployment --image nginx --port 80
-```
-
-Scale the deployment to 5 pods
+Add autoscale to an existing deployment helloworld-all-deployment
 
 ```
-$ kubectl scale deploy/nginx-deployment --replicas=5
-```
-
-Add autoscale to an existing deployment nginx
-
-```
-$ kubectl autoscale deployment nginx-deployment --min=2 --max=10
+kubectl autoscale deployment helloworld-all-deployment --min=3 --max=10
 ```
 
 check the HPA
@@ -56,18 +46,20 @@ check the HPA
 $ kubectl get hpa
 ```
 
+--- Wait for sometime, pods will get increased from 2 to 3 due to autoscaler.
+
 ### Cleanup
 
 ```
-kubectl delete deploy nginx-deployment
-kubectl delete deploy helloworld-all-deployment
+kubectl delete --all deploy,pods,svc,hpa -n default
 ```
 
 
 ## Functionality of Roll outs and Roll Backs
 
 We will use the yaml files located in this section 
-https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex4/navbar-black.yaml
+
+`https://github.com/shekhar2010us/kubernetes_teach_git/blob/master/ex4/navbar-black.yaml`
 
 Create the deployment and service for the navbar
 
@@ -81,7 +73,7 @@ $ kubectl get po,deploy,svc --show-labels -o wide
 
 get the port for the LoadBalancer and check the URL for the node with the port
 
-http://<public_ip_address>:<LoadBalancer_exposed_port>
+`http://<public_ip_address>:<LoadBalancer_exposed_port>`
 
 Rollout a new deployment
 
@@ -102,7 +94,7 @@ $ kubectl describe deploy header-deployment
 ```
 
 Try to hit the front end again, and we should see the header change to blue from black
-http://<public_ip_address>:<LoadBalancer_exposed_port>
+`http://<public_ip_address>:<LoadBalancer_exposed_port>`
 
 Try the rollback the deployment now, and keep monitoring the replicasets , pods and deployment
 
@@ -117,9 +109,9 @@ $ kubectl get po,deploy,rs --show-labels -o wide
 ```
 
 hit the url front end again to see the color of the header turn to black again
-http://<public_ip_address>:<LoadBalancer_exposed_port>
+`http://<public_ip_address>:<LoadBalancer_exposed_port>`
 
-p.s - We can also see the history of the rollout , this is enabled by the --record, but sometimes may not work . Alternative is to use describe
+p.s - We can also see the history of the rollout , this is enabled by the `--record`, but sometimes may not work . Alternative is to use describe
 
 ```
 $ kubectl rollout history deployment/header-deployment
