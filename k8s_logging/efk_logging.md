@@ -25,8 +25,22 @@ kubectl expose deploy elasticsearch --port 9200 -n logging
 kubectl get all -o wide -n logging
 curl <cluster-ip-es-service>:9200
 
+# Check if you have previous version of helm kibana installed
+helm list
+# if you see kibana, delete it
+helm del --purge kibana
+
 # Kibana
-helm install --name kibana stable/kibana --set env.ELASTICSEARCH_URL=http://elasticsearch:9200 --set image.tag=6.3.2 --namespace logging
+export ELASTICSEARCH_URL=http://elasticsearch:9200
+
+helm install stable/kibana --name kibana-v1 --set env.ELASTICSEARCH_URL=${ELASTICSEARCH_URL} --set files.kibana.yml.elasticsearch.url=${ELASTICSEARCH_URL} --set service.externalPort=5601 --namespace logging
+
+
+# verify
+curl -D - <cluster-ip>:5601
+
+# Archive(do not use)- helm install --name kibana stable/kibana --set env.ELASTICSEARCH_URL=http://elasticsearch:9200 --set image.tag=6.3.2 --namespace logging
+
 # verify
 kubectl -n logging get pods -l "app=kibana"
 kubectl get all -n logging
@@ -69,7 +83,7 @@ http://<cluster-ip-es-service>:9200/<logstash-index-name>/_search?pretty=true&q=
 kubectl edit service/elasticsearch -n logging
 
 # change the kibana type of service (change ClusterIP to NodePort)
-kubectl edit service/kibana -n logging
+kubectl edit service/kibana-v1 -n logging
 ```
 
 ### Check in browser
