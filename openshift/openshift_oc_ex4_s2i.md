@@ -130,7 +130,8 @@ oc describe route/openshift-helloworld
 
 ----------
 
-## <b>Re-build the app</b><br>
+## <b>Re-build the app manually</b><br>
+We will perform auto build in the next lab
 
 1. Make changes in the index.html file
 2. Push the change to git
