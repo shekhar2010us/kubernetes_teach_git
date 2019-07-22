@@ -25,7 +25,13 @@ oc create -f mlbparks-template.json
 oc get templates
 oc describe template mlbparks-wildfly
 oc new-app --file mlbparks-template.json -p APPLICATION_NAME=mlbparks
+```
 
+#### Browse the service
+
+```
+oc get routes
+## browse the route for the service - mlbparks
 ```
 
 -------
