@@ -50,6 +50,6 @@ $ kubectl describe <pod_name>
 
 $ kubectl logs <pod_name>
 
-kubectl delete --all pods --namespace=default
+kubectl delete --all deploy --namespace=default
 ```
 
