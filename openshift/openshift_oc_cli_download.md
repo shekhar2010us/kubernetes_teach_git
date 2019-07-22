@@ -16,3 +16,27 @@ The basic idea for all OS installation is:
 - unzip/untar
 - add `oc` from the downloaded directory to system `PATH`
 - check if `oc` works by running `oc --help` command
+
+### For MacOs/Linux
+
+```
+wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.1/macosx/oc.tar.gz
+tar -xvf oc.tar.gz
+cp oc /usr/local/bin/
+## check $PATH, if it doesnt have /usr/local/bin, add
+export PATH=$PATH:/usr/local/bin
+## check $PATH again
+# verify installation
+oc --help
+```
+
+### For Windows
+
+```
+# Download https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.1/windows/oc.zip
+# unzip
+# Go to command line, check directories on your "path" environment
+# Copy "oc.exe" to one of these directories. E.g. "C:\Windows\system32"
+# verify installation
+help oc
+```
